@@ -2,10 +2,15 @@
   // 1) What is the purpose of the 'this keyword'?
 
       //Answer
+      //Like a pronoun in spoken/written language. Refers to the currect subject or current object without explicitly stating the name
 
   // 2) What are the four rules that govern what the 'this keyword' is bound to and describe each?
 
       //Answer
+      // when this is used in a callback function
+      // when this is used in an anonymous closure function
+      // using this when function is saved as a variable. Fix by using bind.
+      // using this when function is borrowed. Fix by using apply()
 
   // 3) What is the difference between call and apply?
 
@@ -14,6 +19,7 @@
   // 4) What does .bind do?
 
       //Answer
+      // fixes the 'this' keyword when used inside a callback function. Refers to object holding function
 
 
 //Next Problem
@@ -24,9 +30,15 @@
   //getUsername --> which is a function that returns the current object's username property. *Don't use 'user' instead use the 'this' keyword*
 
     //Code Here
-
+var user = {
+    username: 'jordan',
+    email: 'jordan@a.com',
+    getUsername: function(){
+      return this.username;
+    }
+};
 //Now, invoke the getUsername method and verify you got the username of the object and not anything else.
-
+getUsername();
 
 //Next Problem
 
@@ -43,6 +55,16 @@ mustang.moveCar(); //increments mustang' move property by 10. Returns the new mo
 
 //Hint, you'll need to write a moveCar function which is added to every object that is being returned from the Car function. You'll also need to use the 'this' keyword properly in order to make sure you're invoking moveCar on the right object (prius vs mustang).
 
+function Car(maker, model, year){
+  this.maker = maker;
+  this.model = model;
+  this.year = year;
+  this.move = 0;
+  this.moveCar = function(){
+    this.move += 10;
+    return this.move;
+  }
+}
 
 
 //Continuation of previous problem
@@ -55,7 +77,8 @@ var getYear = function(){
 
 //Note(no tests)
   //Code Here
-
+getYear.call(prius);
+getYear.call(mustang);
 
 //New Problem
 
